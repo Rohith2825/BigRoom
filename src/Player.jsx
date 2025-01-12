@@ -9,7 +9,7 @@ import gsap from "gsap";
 import { useComponentStore, useTouchStore } from "./stores/ZustandStores";
 import { CameraController } from "./CameraController";
 
-const MOVE_SPEED = 12;
+const MOVE_SPEED = 1;
 const TOUCH_SENSITIVITY = {
   PORTRAIT: {
     x: 0.004, // Reduced horizontal sensitivity in landscape
@@ -25,8 +25,8 @@ const direction = new THREE.Vector3();
 const frontVector = new THREE.Vector3();
 const sideVector = new THREE.Vector3();
 
-const RESPAWN_HEIGHT = -5;
-const START_POSITION = new THREE.Vector3(0, 7, -5);
+const RESPAWN_HEIGHT = -2;
+const START_POSITION = new THREE.Vector3(0, 0.3, 0);
 
 export const Player = () => {
   const playerRef = useRef();
@@ -307,9 +307,11 @@ export const Player = () => {
     if (!playerRef.current || initialTourComplete.current) return;
   
     // Set initial position off-screen
-    const startPosition = new THREE.Vector3(-3, 55, 80);
+    const startPosition = new THREE.Vector3(-12, 0, 0);
     playerRef.current.setTranslation(startPosition);
     camera.position.copy(startPosition);
+    camera.rotation.set(0, 86.35, 0);
+
   
     // Single smooth transition to spawn point
     const timeline = gsap.timeline({
@@ -508,7 +510,7 @@ export const Player = () => {
     >
       <CameraController setAnimating={setAnimating} playerRef={playerRef} />
       <mesh castShadow>
-        <CapsuleCollider args={[1.2, 1]} />
+        <CapsuleCollider args={[0.1, 0.1]} />
       </mesh>
     </RigidBody>
   );
