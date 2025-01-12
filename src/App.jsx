@@ -54,9 +54,9 @@ export const App = () => {
       !isCartOpen &&
       !isWishlistOpen &&
       !isInfoModalOpen &&
-      !isDiscountModalOpen && 
+      !isDiscountModalOpen &&
       !isSettingsModalOpen &&
-      !isTermsModalOpen && 
+      !isTermsModalOpen &&
       !isContactModalOpen
     ) {
       lockPointer();
@@ -96,7 +96,7 @@ export const App = () => {
         <Suspense fallback={null}>
           <Player />
         </Suspense>
-        {/* <Products /> */}
+        <Products />
         {/* <ChestBox /> */}
         <Television
           videoPath="/media/backhome.mp4"
