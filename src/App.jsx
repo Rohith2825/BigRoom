@@ -97,7 +97,7 @@ export const App = () => {
           <Player />
         </Suspense>
         <Products />
-        {/* <ChestBox /> */}
+        <ChestBox />
         <Television
           videoPath="/media/backhome.mp4"
           scale={[0.02, 0.02, 0.02]}
