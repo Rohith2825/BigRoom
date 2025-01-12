@@ -8,28 +8,28 @@ import { useComponentStore } from "./stores/ZustandStores";
 const ChestBox = () => {
   const chestBoxData = [
     {
-      position: [-22, -3.45, -63],
-      scale: 1,
-      rotation: [0, 90, 0],
+      position: [1.2, 0.02, 2.5],
+      scale: 0.2,
+      rotation: [0, 130, 0],
       path: "/models/compressed_old_chest.glb",
       discountCode: "STRATEGYFOX10",
-      isRotate: true,
+      isRotate: false,
     },
     {
-      position: [32, -4.4, -33],
-      scale: 1,
-      rotation: [0, -40, 0],
+      position: [1.2, 0.02, -2.52],
+      scale: 0.2,
+      rotation: [0, 60, 0],
       path: "/models/compressed_old_chest1.glb",
       discountCode: "STRATEGYFOX15",
       isRotate: false,
     },
     {
-      position: [18, -4.5, -65],
-      scale: 1,
-      rotation: [0, -70, 0],
+      position: [4.2, 0.02, -0.3],
+      scale: 0.2,
+      rotation: [0, 92, 0],
       path: "/models/compressed_old_chest2.glb",
       discountCode: "STRATEGYFOX20",
-      isRotate: true,
+      isRotate: false,
     },
   ];
 
