@@ -164,7 +164,7 @@ export const Player = () => {
     const startPosition = new THREE.Vector3(4, 0.5, 0);
     playerRef.current.setTranslation(startPosition);
     camera.position.copy(startPosition);
-    camera.rotation.set(0, -Math.PI / 2, 0); // -86.35 degrees in radians
+    camera.rotation.set(0, -Math.PI / 2, 0); 
   
     // Single smooth transition to spawn point
     const timeline = gsap.timeline({

@@ -12,9 +12,9 @@ export const CameraController = ({ setAnimating, playerRef }) => {
       setAnimating(true);
 
       const targetPosition = {
-        x: 0,
-        y: -1,
-        z: -64
+        x: 3.25,
+        y: 0.3,
+        z: 0,
       };
 
       // Create a timeline for sequential animations
@@ -34,7 +34,7 @@ export const CameraController = ({ setAnimating, playerRef }) => {
       // First reset rotation
       timeline.to(camera.rotation, {
         x: 0,
-        y: 0,
+        y: - Math.PI/2,
         z: 0,
         duration: 2,
         ease: "power2.inOut"

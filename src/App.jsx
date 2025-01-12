@@ -78,7 +78,7 @@ export const App = () => {
           onUnlock={pointerLockControlsUnlockHandler}
         />
       )}
-      <Skybox />
+      {/* <Skybox /> */}
       <ambientLight intensity={3.5} />
       <directionalLight
         castShadow
