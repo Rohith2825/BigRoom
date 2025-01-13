@@ -1,24 +1,80 @@
-import React, { useRef, useState } from "react";
-import { useFrame } from "@react-three/fiber";
+import React, { useRef } from "react";
+import { useFrame, useThree } from "@react-three/fiber";
 import Swal from "sweetalert2";
 import styles from "@/UI/UI.module.scss";
 import { ProductService } from "./api/shopifyAPIService";
 import { useComponentStore } from "./stores/ZustandStores";
 import { useGLTFWithKTX2 } from "./useGTLFwithKTX";
 import { RigidBody } from "@react-three/rapier";
+import { Raycaster, Vector2 } from "three";
 
 export function RoundRack(props) {
   const { nodes, materials } = useGLTFWithKTX2("/RoundRack.glb");
   const groupRef = useRef();
+  const { camera, scene } = useThree();
+  const raycaster = new Raycaster();
+  const pointer = new Vector2();
 
   const { openModal, setSelectedProduct, products, setProducts } =
     useComponentStore();
 
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.004; // Constant rotation along the Y-axis
+      groupRef.current.rotation.y += 0.002;
     }
   });
+
+  const handleClick = (event) => {
+    event.stopPropagation();
+
+    // Check if it's a touch event
+    const isTouch = event.nativeEvent instanceof TouchEvent;
+
+    if (isTouch) {
+      // Handle touch events
+      const touch = event.nativeEvent.touches[0];
+      pointer.x = (touch.clientX / window.innerWidth) * 2 - 1;
+      pointer.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+    } else {
+      // Handle mouse events - use center of screen when pointer locked
+      if (document.pointerLockElement) {
+        pointer.x = 0;
+        pointer.y = 0;
+      } else {
+        pointer.x = (event.nativeEvent.clientX / window.innerWidth) * 2 - 1;
+        pointer.y = -(event.nativeEvent.clientY / window.innerHeight) * 2 + 1;
+      }
+    }
+
+    // Update the picking ray with the camera and pointer position
+    raycaster.setFromCamera(pointer, camera);
+
+    // Get all meshes in the group
+    const meshes = [];
+    groupRef.current.traverse((child) => {
+      if (child.isMesh) {
+        meshes.push(child);
+      }
+    });
+
+    // Calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects(meshes);
+
+    if (intersects.length > 0) {
+      // Get the first intersected object
+      const firstHit = intersects[0].object;
+      
+      // Find the parent group that contains the product ID
+      let currentParent = firstHit.parent;
+      while (currentParent && !currentParent.userData.productId) {
+        currentParent = currentParent.parent;
+      }
+
+      if (currentParent && currentParent.userData.productId) {
+        handleProductOpen(currentParent.userData.productId);
+      }
+    }
+  };
 
   const handleProductOpen = (productId) => {
     if (products && products.length > 0) {
@@ -49,7 +105,7 @@ export function RoundRack(props) {
 
   return (
     <RigidBody type = "fixed">
-    <group {...props} ref={groupRef} dispose={null}>
+    <group {...props} ref={groupRef} dispose={null} onClick={handleClick}>
       <mesh
         castShadow
         receiveShadow
@@ -62,7 +118,8 @@ export function RoundRack(props) {
         position={[3.421, 26.638, 19.861]}
         rotation={[-0.163, -1.395, -0.184]}
         scale={2.583}
-        onClick={() => handleProductOpen(9688999952677)}
+        userData={{ productId: 9688999952677 }}
+        //onClick={() => handleProductOpen(9688999952677)}
       >
         <mesh
           castShadow
@@ -87,7 +144,8 @@ export function RoundRack(props) {
         position={[9.719, 26.638, 17.765]}
         rotation={[-0.055, -1.029, -0.07]}
         scale={2.583}
-        onClick={() => handleProductOpen(9729009615141)}
+        userData={{ productId: 9729009615141 }}
+        //onClick={() => handleProductOpen(9729009615141)}
       >
         <mesh
           castShadow
@@ -112,7 +170,8 @@ export function RoundRack(props) {
         position={[14.651, 26.638, 13.733]}
         rotation={[-0.041, -0.802, -0.053]}
         scale={2.583}
-        onClick={() => handleProductOpen(9729030488357)}
+        userData={{ productId: 9729030488357 }}
+        //onClick={() => handleProductOpen(9729030488357)}
       >
         <mesh
           castShadow
@@ -137,7 +196,8 @@ export function RoundRack(props) {
         position={[18.399, 26.561, 8.146]}
         rotation={[-0.034, -0.598, -0.043]}
         scale={2.583}
-        onClick={() => handleProductOpen(9729030488357)}
+        userData={{ productId: 9689001328933 }}
+        //onClick={() => handleProductOpen(9729030488357)}
       >
         <mesh
           castShadow
@@ -162,7 +222,7 @@ export function RoundRack(props) {
         position={[19.022, 26.609, -6.386]}
         rotation={[-0.031, 0.39, -0.012]}
         scale={2.583}
-        onClick={() => handleProductOpen(9689001328933)}
+        //onClick={() => handleProductOpen(9689001328933)}
       >
         <mesh
           castShadow
@@ -187,7 +247,7 @@ export function RoundRack(props) {
         position={[15.866, 26.65, -12.461]}
         rotation={[-0.039, 0.758, 0.004]}
         scale={2.583}
-        onClick={() => handleProductOpen(9689001328933)}
+        //onClick={() => handleProductOpen(9689001328933)}
       >
         <mesh
           castShadow
@@ -212,7 +272,7 @@ export function RoundRack(props) {
         position={[10.847, 26.63, -16.852]}
         rotation={[-0.051, 0.985, 0.019]}
         scale={2.583}
-        onClick={() => handleProductOpen(9689001328933)}
+        //onClick={() => handleProductOpen(9689001328933)}
       >
         <mesh
           castShadow
@@ -237,7 +297,7 @@ export function RoundRack(props) {
         position={[4.638, 26.58, -19.639]}
         rotation={[-0.076, 1.188, 0.047]}
         scale={2.583}
-        onClick={() => handleProductOpen(9689001328933)}
+        //onClick={() => handleProductOpen(9689001328933)}
       >
         <mesh
           castShadow
@@ -262,7 +322,7 @@ export function RoundRack(props) {
         position={[-6.128, 26.643, -19.254]}
         rotation={[-3.072, 1.152, 3.054]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662519077)}
+        //onClick={() => handleProductOpen(9658662519077)}
       >
         <mesh
           castShadow
@@ -287,7 +347,7 @@ export function RoundRack(props) {
         position={[-12.094, 26.583, -16.088]}
         rotation={[-3.101, 0.785, 3.09]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662519077)}
+        //onClick={() => handleProductOpen(9658662519077)}
       >
         <mesh
           castShadow
@@ -312,7 +372,7 @@ export function RoundRack(props) {
         position={[-17.024, 26.684, -10.741]}
         rotation={[-3.108, 0.558, 3.101]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662519077)}
+        //onClick={() => handleProductOpen(9658662519077)}
       >
         <mesh
           castShadow
@@ -337,7 +397,7 @@ export function RoundRack(props) {
         position={[-19.613, 26.632, -4.102]}
         rotation={[-3.112, 0.31, 3.109]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662519077)}
+        //onClick={() => handleProductOpen(9658662519077)}
       >
         <mesh
           castShadow
@@ -362,7 +422,7 @@ export function RoundRack(props) {
         position={[-19.363, 26.64, 6.147]}
         rotation={[-3.111, -0.418, 3.131]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662682917)}
+        //onClick={() => handleProductOpen(9658662682917)}
       >
         <mesh
           castShadow
@@ -387,7 +447,7 @@ export function RoundRack(props) {
         position={[-16.159, 26.564, 11.953]}
         rotation={[-3.101, -0.785, -3.137]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662682917)}
+        //onClick={() => handleProductOpen(9658662682917)}
       >
         <mesh
           castShadow
@@ -412,7 +472,7 @@ export function RoundRack(props) {
         position={[-10.834, 26.753, 16.981]}
         rotation={[-3.088, -1.012, -3.119]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662682917)}
+        //onClick={() => handleProductOpen(9658662682917)}
       >
         <mesh
           castShadow
@@ -437,7 +497,7 @@ export function RoundRack(props) {
         position={[-4.236, 26.711, 19.745]}
         rotation={[-3.049, -1.259, -3.077]}
         scale={2.583}
-        onClick={() => handleProductOpen(9658662682917)}
+        //onClick={() => handleProductOpen(9658662682917)}
       >
         <mesh
           castShadow
