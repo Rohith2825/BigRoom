@@ -87,7 +87,7 @@ export function RoundRack(props) {
         position={[9.719, 26.638, 17.765]}
         rotation={[-0.055, -1.029, -0.07]}
         scale={2.583}
-        onClick={() => handleProductOpen(9688999952677)}
+        onClick={() => handleProductOpen(9729009615141)}
       >
         <mesh
           castShadow
@@ -112,7 +112,7 @@ export function RoundRack(props) {
         position={[14.651, 26.638, 13.733]}
         rotation={[-0.041, -0.802, -0.053]}
         scale={2.583}
-        onClick={() => handleProductOpen(9688999952677)}
+        onClick={() => handleProductOpen(9729030488357)}
       >
         <mesh
           castShadow
@@ -137,7 +137,7 @@ export function RoundRack(props) {
         position={[18.399, 26.561, 8.146]}
         rotation={[-0.034, -0.598, -0.043]}
         scale={2.583}
-        onClick={() => handleProductOpen(9688999952677)}
+        onClick={() => handleProductOpen(9729030488357)}
       >
         <mesh
           castShadow

@@ -99,7 +99,7 @@ export const App = () => {
         </Suspense>
         <Products />
         <Suspense fallback={null}>
-          <RoundRack position={[4.8, 0.05, 2.4]} scale={[0.01, 0.01, 0.01]} />
+          <RoundRack position={[4.8, 0.05, 2.4]} scale={[0.015, 0.015, 0.015]} />
         </Suspense>
         <ChestBox />
         <Television
