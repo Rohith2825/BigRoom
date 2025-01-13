@@ -188,6 +188,14 @@ export const Player = () => {
         if (playerRef.current) {
           playerRef.current.setTranslation(camera.position);
         }
+        
+        // Adjust FOV for mobile
+        if (isMobile) {
+          const targetFOV = 90; // Target FOV for mobile
+          const currentFOV = THREE.MathUtils.lerp(camera.fov, targetFOV, 0.05);
+          camera.fov = currentFOV;
+          camera.updateProjectionMatrix();
+        }
       },
     });
   
@@ -220,7 +228,7 @@ export const Player = () => {
       timeline.kill();
       clearInterval(animationFrameId);
     };
-  }, [camera]);
+  }, [camera, isMobile]);
   
   
 
