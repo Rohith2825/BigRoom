@@ -15,7 +15,7 @@ export function RoundRack(props) {
 
   useFrame(() => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.008; // Constant rotation along the Y-axis
+      groupRef.current.rotation.y += 0.004; // Constant rotation along the Y-axis
     }
   });
 
