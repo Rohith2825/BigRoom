@@ -15,6 +15,7 @@ import TermsConditionsModal from "@/TermsModal";
 import ContactUsModal from "@/ContactUsModal";
 import ReactAudioPlayer from "react-audio-player";
 import ModalWrapper from "@/ModalWrapper";
+import ProductSearcher from "@/ProductSearcher";
 
 const customDriverStyles = `
   .driver-popover {
@@ -65,7 +66,8 @@ const UI = () => {
     discountCode, isDiscountModalOpen, closeDiscountModal,
     isSettingsModalOpen , openSettingsModal, closeSettingsModal,
     isAudioPlaying,
-    isTermsModalOpen,isContactModalOpen
+    isTermsModalOpen,isContactModalOpen,
+    isProductSearcherOpen, openProductSearcher, closeProductSearcher
   } = useComponentStore();
   const { activateDriver, deactivateDriver} = useDriverStore();
   const { setTourComplete } = useTourStore();
@@ -215,6 +217,7 @@ const UI = () => {
       {crosshairVisible && !isMobile && <div className={styles.aim} />}
 
       <div className={styles.iconsContainer}>
+        <img src="/icons/Search.svg" alt="Search" className={styles.icon} onClick={openProductSearcher} />
         <img src="/icons/Cart.svg" alt="Cart" className={styles.icon} onClick={openCart} />
         <img src="/icons/Wishlist.svg" alt="Wishlist" className={styles.icon} onClick={openWishlist} />
         <img src="/icons/Settings.svg"  alt="Settings" className={styles.icon} onClick={openSettingsModal} />
@@ -276,6 +279,7 @@ const UI = () => {
         discountCode={discountCode}
       />
       {isSettingsModalOpen && <ModalWrapper><SettingsModal /></ModalWrapper>}
+      {isProductSearcherOpen && <ProductSearcher></ProductSearcher>}
       <div>
         <ChatbotModal
           isChatbotModalOpen={ChatbotOpen}

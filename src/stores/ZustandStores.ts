@@ -56,6 +56,11 @@ interface ComponentStore {
   openDiscountModal: () => void;
   closeDiscountModal: () => void;
   setDiscountCode: (code: string) => void;
+
+  // Search Handling
+  isProductSearcherOpen: boolean;
+  openProductSearcher: () => void;
+  closeProductSearcher: () => void;
 }
 
 const useComponentStore = create<ComponentStore>((set) => ({
@@ -167,6 +172,11 @@ const useComponentStore = create<ComponentStore>((set) => ({
     set({ isDiscountModalOpen: false });
   },
   setDiscountCode: (code: string) => set({ discountCode: code }),
+
+  // Search Handling
+  isProductSearcherOpen: false,
+  openProductSearcher: () => set({ isProductSearcherOpen: true }),
+  closeProductSearcher: () => set({ isProductSearcherOpen: false }),
 }));
 
 // Pointer lock handling
