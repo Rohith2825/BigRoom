@@ -190,7 +190,7 @@ export const Player = () => {
         }
         
         // Adjust FOV for mobile
-        if (isMobile) {
+        if (isMobile && isPortrait) {
           const targetFOV = 90; // Target FOV for mobile
           const currentFOV = THREE.MathUtils.lerp(camera.fov, targetFOV, 0.05);
           camera.fov = currentFOV;
@@ -228,7 +228,7 @@ export const Player = () => {
       timeline.kill();
       clearInterval(animationFrameId);
     };
-  }, [camera, isMobile]);
+  }, [camera, isMobile , isPortrait]);
   
   
 
