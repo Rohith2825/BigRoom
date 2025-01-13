@@ -5,6 +5,7 @@ import styles from "@/UI/UI.module.scss";
 import { ProductService } from "./api/shopifyAPIService";
 import { useComponentStore } from "./stores/ZustandStores";
 import { useGLTFWithKTX2 } from "./useGTLFwithKTX";
+import { RigidBody } from "@react-three/rapier";
 
 export function RoundRack(props) {
   const { nodes, materials } = useGLTFWithKTX2("/RoundRack.glb");
@@ -47,6 +48,7 @@ export function RoundRack(props) {
   };
 
   return (
+    <RigidBody type = "fixed">
     <group {...props} ref={groupRef} dispose={null}>
       <mesh
         castShadow
@@ -457,5 +459,6 @@ export function RoundRack(props) {
         />
       </group>
     </group>
+    </RigidBody>
   );
 }
