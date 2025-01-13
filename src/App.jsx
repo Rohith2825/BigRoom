@@ -16,6 +16,7 @@ import {
   useDriverStore,
 } from "./stores/ZustandStores";
 import { useTouchStore } from "./stores/ZustandStores";
+import { RoundRack } from "./RoundRack";
 
 const shadowOffset = 50;
 
@@ -97,6 +98,9 @@ export const App = () => {
           <Player />
         </Suspense>
         <Products />
+        <Suspense fallback={null}>
+          <RoundRack position={[4.8, 0.05, 2.4]} scale={[0.01, 0.01, 0.01]} />
+        </Suspense>
         <ChestBox />
         <Television
           videoPath="/media/backhome.mp4"
